@@ -1,0 +1,41 @@
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='/', intents=intents)
+
+hello_words = ['привет','здарова','салам алейкум']
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def plastic(ctx):
+    await ctx.send(f'Как правило, сроки разложения изделий из пластика могут достигать 1 тыс. лет. При этом пластиковые пакеты, которые мы часто используем в нашей повседневной жизни,могут разлагаться от 100 до 1 тыс. лет, а пластиковые бутылки — от 450 лет и более.')
+
+@bot.command()
+async def couldnt(ctx):
+    await ctx.send(f'Разбитые градусники, Просроченные медикаменты, Дезодоранты, освежители воздуха и другие аэрозоли, Электронные устройства и бытовую технику.')
+
+@bot.command()
+async def can(ctx):
+    await ctx.send(f'Пакеты от сока и молочной продукции, памперсы, разовую посуду, бумагу различной структуры, стекла и зеркала, коробки из-под тортов, пластик, пищевые остатки, лотки от яиц и мясных продуктов Не идущий в переработку мусор Картонные коробки, все виды печатной продукции, лотки из гофрокартона.')
+
+@bot.command()
+async def help(ctx):
+    await ctx.send(f'/plastic - сколько лет разлагаеться пластик. /couldnt - что нельзя выбрасывать в обычную мусорку. /can - что можно выбрасыть в обычную мусорку')
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    msg = message.author.content.lower()
+
+    if msg in hello_words:
+        await message.channel.send('Приветствую!')
+    
+    bot.run('MTE1NzAxMTM2NDA5MTUzMTM2NA.G1nT9M.SoscHBl3HoGv1shwcXpVvq83rWOan4RZ5JbwQc')
